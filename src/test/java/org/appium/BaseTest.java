@@ -4,6 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -16,9 +17,13 @@ public class BaseTest {
 
     public AppiumDriverLocalService server;
     public AndroidDriver driver;
+    //public DesiredCapabilities capabilities;
 
     @BeforeClass
     public void configureAppium() throws MalformedURLException {
+
+      /*  capabilities = new DesiredCapabilities();
+        capabilities.setCapability("deviceName", "Pixel7Pro");*/
 
         server = new AppiumServiceBuilder()
                 .withAppiumJS(new File("C://Users//Praveen//AppData//Roaming//npm//node_modules//appium//build//lib//main.js"))
