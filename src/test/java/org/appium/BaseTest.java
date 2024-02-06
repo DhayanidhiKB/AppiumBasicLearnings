@@ -1,10 +1,14 @@
 package org.appium;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -17,13 +21,9 @@ public class BaseTest {
 
     public AppiumDriverLocalService server;
     public AndroidDriver driver;
-    //public DesiredCapabilities capabilities;
 
     @BeforeClass
     public void configureAppium() throws MalformedURLException {
-
-      /*  capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Pixel7Pro");*/
 
         server = new AppiumServiceBuilder()
                 .withAppiumJS(new File("C://Users//Praveen//AppData//Roaming//npm//node_modules//appium//build//lib//main.js"))
@@ -38,10 +38,14 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
+    public void longPress(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture", ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(), "duration", 2000));
+    }
+
     @AfterClass
     public void tearDown() {
         driver.quit();
-        server.stop();
+        //server.stop();
     }
 }
 
