@@ -42,10 +42,15 @@ public class BaseTest {
         ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture", ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(), "duration", 2000));
     }
 
+    public void SwipeGesture(WebElement element,String direction) {
+        ((JavascriptExecutor) driver).executeScript("mobile: swipeGesture", ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),"direction", direction,
+                "percent", 0.75));
+    }
+
     @AfterClass
     public void tearDown() {
         driver.quit();
-        //server.stop();
+        server.stop();
     }
 }
 
