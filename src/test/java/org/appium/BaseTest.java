@@ -1,6 +1,7 @@
 package org.appium;
 
 import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -32,7 +33,7 @@ public class BaseTest {
 
         UiAutomator2Options ui = new UiAutomator2Options();
         ui.setDeviceName("Pixel7Pro");
-        ui.setApp(System.getProperty("user.dir") + "/src/test/resources/utils/ApiDemos-debug.apk");
+        ui.setApp(System.getProperty("user.dir") + "/src/test/resources/utils/General-Store.apk");
 
         driver = new AndroidDriver(new URL(" http://127.0.0.1:4723/"), ui);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -47,10 +48,25 @@ public class BaseTest {
                 "percent", 0.75));
     }
 
+    public void DragAndDropGesture(WebElement source,int XCoordinate,int YCoordinate) {
+        ((JavascriptExecutor) driver).executeScript("mobile: dragGesture", ImmutableMap.of(
+                "elementId", ((RemoteWebElement) source).getId(),
+                "endX", XCoordinate,
+                "endY", YCoordinate
+        ));
+    }
+
+    public void ScrollGesture(String text){
+       /* driver.findElement(AppiumBy.androidUIAutomator
+                ("new UiScrollable(new UiSelector()).scrollIntoView(text(\"WebView\"));"));*/
+        driver.findElement(AppiumBy.androidUIAutomator
+                ("new UiScrollable(new UiSelector()).scrollIntoView(text(\""+text+"\"));"));
+    }
+
     @AfterClass
     public void tearDown() {
         driver.quit();
-        server.stop();
+        //server.stop();
     }
 }
 

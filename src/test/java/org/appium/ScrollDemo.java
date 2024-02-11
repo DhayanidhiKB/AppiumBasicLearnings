@@ -9,8 +9,7 @@ public class ScrollDemo extends BaseTest {
     public void scrollDemoTest() throws InterruptedException {
 
         driver.findElement(AppiumBy.accessibilityId("Views")).click();
-        driver.findElement(AppiumBy.androidUIAutomator
-                ("new UiScrollable(new UiSelector()).scrollIntoView(text(\"WebView\"));"));
+        ScrollGesture("WebView");
         Thread.sleep(2000);
     }
 
